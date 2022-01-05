@@ -100,7 +100,7 @@ def translate_descriptions(descriptions):
             ]
         else:
             translated_paragraphs = GoogleTranslator(detect(paragraphs[0]), 'ar').translate(paragraphs[0])
-        translated_descriptions.append("".join(translated_paragraphs))
+        translated_descriptions.append("".join(translated_paragraphs).strip(".").strip() + ".")
     return translated_descriptions
 
 
@@ -126,4 +126,4 @@ def get_description_batch(descriptions):
     return batch_descriptions
 
 
-app.run()
+app.run(port=5002)
