@@ -1,3 +1,4 @@
+import paragraphs as paragraphs
 from flask import Flask, jsonify, request, make_response
 from pprint import pprint
 from flask import jsonify
@@ -93,9 +94,11 @@ def translate_titles(batch_titles):
 def translate_descriptions(descriptions):
     translated_descriptions = []
     for paragraphs in descriptions:
-        if len(paragraphs) > 1:
+        if type(paragraphs) is not list:
+            translated_paragraphs = [GoogleTranslator(detect(paragraphs), 'ar').translate(paragraphs)]
+        elif len(paragraphs) > 1:
             translated_paragraphs = [
-                GoogleTranslator(detect(p[0]), 'ar').translate(p)
+                GoogleTranslator(detect(p), 'ar').translate(p)
                 for p in paragraphs
             ]
         else:
